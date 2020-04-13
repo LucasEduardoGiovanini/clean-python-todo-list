@@ -5,7 +5,6 @@ class Task:
         self.stats = stats
 
 
-
     def completeTask(self): #caso queira alterar o nome
         self.stats = True
         return self.stats
@@ -14,5 +13,5 @@ class Task:
         self.stats = False
         return self.stats
 
-    def getTask(self):
-        return " name: "+self.name+"\n description: "+self.description+"\n stats "+self.stats
+    def getTask(self,task):
+        return " name: "+task.name+"\n description: "+task.description+"\n stats "+str(task.stats)+"\n\n"
