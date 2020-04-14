@@ -11,10 +11,8 @@ class TodoList:
         return self.tasks.remove(task)
 
 
-    def printList(self):
-        print("list name: "+self.name)
-        for task in self.tasks:
-            print(Task.getTask(self, task))
+    def __str__(self):
+        return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
 
 
     def orderTasks(self,order_list:list):
@@ -26,5 +24,4 @@ class TodoList:
         self.tasks = cloned_list
         cloned_list = list()
         return self.tasks
-
 
