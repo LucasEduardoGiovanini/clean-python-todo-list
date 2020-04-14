@@ -15,13 +15,10 @@ class TodoList:
         return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
 
 
-    def orderTasks(self,order_list:list):
-        cloned_list = self.tasks.copy()
-        for task in range(0,len(self.tasks)-1):
-            temporary_armazenation_variable = cloned_list[task]
-            cloned_list[task] = cloned_list[order_list[task]]
-            cloned_list[order_list[task]] = temporary_armazenation_variable
-        self.tasks = cloned_list
-        cloned_list = list()
+    def orderTasks(self,task_to_be_relocated:Task,task_that_give_position:Task):
+
+        self.removeTask(task_to_be_relocated)
+        index_realocation = self.tasks.index(task_that_give_position)
+        self.tasks.insert(index_realocation,task_to_be_relocated)
         return self.tasks
 
