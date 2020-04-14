@@ -11,12 +11,10 @@ class TodoList:
         return self.tasks.remove(task)
 
 
-    def getList(self):
+    def printList(self):
         print("list name: "+self.name)
         for task in self.tasks:
             print(Task.getTask(self, task))
-
-
 
 
     def orderTasks(self,order_list:list):
