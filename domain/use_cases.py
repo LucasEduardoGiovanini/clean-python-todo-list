@@ -5,33 +5,33 @@ from .entities.todolist import TodoList
 def Create_list(listname: str):
     if listname == str:
         list1 = TodoList(listname)
-        return True
+        return listname
     return False
 
 
 def add_task(task_list: TodoList, task: Task):
     task_list.addTask(task)
-    return True
+    return task
 
 
 def remove_task(task_list: TodoList, task: Task):
     if task_list.tasks.index(task):
         task_list.removeTask(task)
-        return True
+        return task
     return False
 
 
 def complete_task(task_list: TodoList, task: Task):
     if task_list.tasks.index(task):
         task.completeTask()
-        return True
+        return task
     return False
 
 
 def undo_task(task_list: TodoList, task: Task):
     if task_list.tasks.index(task):
         task.undoTask()
-        return True
+        return task
     return False
 
 

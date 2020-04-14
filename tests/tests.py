@@ -1,6 +1,8 @@
 import unittest
+from domain import use_cases
 from domain.entities.todolist import TodoList
 from domain.entities.task import Task
+
 
 class Tests(unittest.TestCase):
 
@@ -29,7 +31,7 @@ class Tests(unittest.TestCase):
         testlist2.addTask(task5)
         testlist2.addTask(task6)
 
-        self.testlist2.removeTask(task5)
+        testlist2.removeTask(task5)
 
     def test_complete_task(self):
 
