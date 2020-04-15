@@ -3,9 +3,9 @@ from .entities.todolist import TodoList
 
 
 def Create_list(listname: str):
-    if type(listname)== str:
-        list1 = TodoList(listname)
-        return listname
+    if type(listname) == str:
+        list_creation = TodoList(listname)
+        return list_creation
     return False
 
 
