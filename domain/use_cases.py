@@ -3,7 +3,7 @@ from .entities.todolist import TodoList
 
 
 def Create_list(listname: str):
-    if listname == str:
+    if type(listname)== str:
         list1 = TodoList(listname)
         return listname
     return False

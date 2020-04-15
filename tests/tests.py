@@ -7,7 +7,9 @@ from domain.entities.task import Task
 class Tests(unittest.TestCase):
 
     def test_create_list(self):
-        testlist = TodoList("works of day")
+
+        response = use_cases.Create_list("works of day")
+        self.assertEqual(response, "works of day")
 
     def test_add_task_to_list(self):
         testlist1 = TodoList("market")
