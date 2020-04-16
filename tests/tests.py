@@ -37,30 +37,27 @@ class Tests(unittest.TestCase):
         with self.assertRaises(todoListError):
             testlist2false.removeTask(task5)
 
-
-
     def test_complete_task_not_completed(self):
         task8 = Task("apple", "test apple", False, 2)
         task8.completeTask()
-        self.assertEqual(task8.completed,True)
+        self.assertEqual(task8.completed, True)
 
     def test_complete_task_already_completed(self):
         task8 = Task("apple", "test apple", True, 2)
         task8.completeTask()
         self.assertEqual(task8.completed, True)
 
-    '''    def test_undo_task(self):
-        testlist4 = TodoList("market")
-        task10 = Task("banana", " test banana", True, 1)
+    def test_undo_task_already_completed(self):
+        task11 = Task("apple", "test apple", True, 2)
+
+        response = task11.undoTask()
+        self.assertEqual(response, False)
+
+    def test_undo_task_not_completed(self):
         task11 = Task("apple", "test apple", False, 2)
-        task12 = Task("rice", "test rice", False, 3)
 
-        testlist4.addTask(task10)
-        testlist4.addTask(task11)
-        testlist4.addTask(task12)
-
-        response = use_cases.undo_task(testlist4, task10)
-        self.assertEqual(response, task10)
+        response = task11.undoTask()
+        self.assertEqual(response, False)
 
     def test_order_task(self):
         testlist5 = TodoList("market")
@@ -72,6 +69,20 @@ class Tests(unittest.TestCase):
         testlist5.addTask(task14)
         testlist5.addTask(task15)
 
-        response = use_cases.order_task(testlist5, task15, task13)
-        self.assertEqual(response, True)
-'''
+        response = testlist5.orderTasks(task15, 0)
+        self.assertEqual(response[0], task15)
+
+    def test_order_task_with_task_not_existent_in_list(self):
+        testlist6 = TodoList("market")
+        task16 = Task("banana", " test banana", True, 1)
+        task17 = Task("apple", "test apple", False, 2)
+        task18 = Task("rice", "test rice", False, 3)
+
+        task19 = Task("test", "big test", True, 1)
+
+        testlist6.addTask(task16)
+        testlist6.addTask(task17)
+        testlist6.addTask(task18)
+
+        with self.assertRaises(todoListError):
+            testlist6.orderTasks(task19, 0)
