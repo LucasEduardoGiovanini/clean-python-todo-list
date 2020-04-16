@@ -15,10 +15,13 @@ class TodoList:
         return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
 
 
-    def orderTasks(self,task_to_be_relocated:Task,task_that_give_position:Task):
-
-        self.removeTask(task_to_be_relocated)
-        index_realocation = self.tasks.index(task_that_give_position)
-        self.tasks.insert(index_realocation,task_to_be_relocated)
-        return self.tasks
-
+    def orderTasks(self,task_to_be_relocated:Task,position: int):
+        try:
+            self.removeTask(task_to_be_relocated)
+            self.tasks.insert(position,task_to_be_relocated)
+        except IndexError:
+            return "posição incorreta"
+        except ValueError:
+            return "a tarefa não existe na lista"
+        else:
+            return self.tasks
