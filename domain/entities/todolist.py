@@ -6,7 +6,8 @@ class TodoList:
         self.tasks = list()
 
     def addTask(self,task:Task):
-        return self.tasks.append(task)
+        self.tasks.append(task)
+        return self.tasks
 
     def removeTask(self,task:Task):
         try:
@@ -14,7 +15,7 @@ class TodoList:
         except ValueError as ve:
             raise todoListError(ve, 13, "removing a task that does not exist in this list")
         else:
-            return removed
+            return True
 
 
     def __str__(self):
