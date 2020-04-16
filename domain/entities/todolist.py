@@ -1,4 +1,5 @@
 from domain.entities.task import Task
+from domain.exception.custom_exception import todoListError
 class TodoList:
     def __init__(self,name):
         self.name = name
@@ -8,7 +9,12 @@ class TodoList:
         return self.tasks.append(task)
 
     def removeTask(self,task:Task):
-        return self.tasks.remove(task)
+        try:
+           removed = self.tasks.remove(task)
+        except ValueError as ve:
+            raise todoListError(ve, 13, "removing a task that does not exist in this list")
+        else:
+            return removed
 
 
     def __str__(self):
@@ -16,12 +22,6 @@ class TodoList:
 
 
     def orderTasks(self,task_to_be_relocated:Task,position: int):
-        try:
-            self.removeTask(task_to_be_relocated)
-            self.tasks.insert(position,task_to_be_relocated)
-        except IndexError:
-            return "posição incorreta"
-        except ValueError:
-            return "a tarefa não existe na lista"
-        else:
-            return self.tasks
+        self.removeTask(task_to_be_relocated)
+        self.tasks.insert(position,task_to_be_relocated)
+        return self.tasks
