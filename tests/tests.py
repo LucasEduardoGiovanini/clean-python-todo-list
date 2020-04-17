@@ -9,7 +9,7 @@ class Tests(unittest.TestCase):
 
     def test_create_list(self):
         response = TodoList("works of day")
-        self.assertEqual(response.name, ("works of day"))
+        self.assertEqual(response.name, "works of day")
 
     def test_add_task_to_list(self):
         testlist1 = TodoList("market")
@@ -31,45 +31,52 @@ class Tests(unittest.TestCase):
     def test_remove_task_to_not_exist_in_list(self):
         testlist2false = TodoList("market")
         task5 = Task("apple", "test apple", False, 2)
-        task6 = Task("krab", "test krab", False, 2)
+        task6 = Task("crab", "test crab", False, 2)
         testlist2false.add_task(task6)
 
         with self.assertRaises(todoListError):
             testlist2false.remove_task(task5)
 
     def test_complete_task_not_completed(self):
+        testlist3 = TodoList("market")
         task8 = Task("apple", "test apple", False, 2)
-        task8.complete()
-        self.assertEqual(task8.completed, True)
+        testlist3.add_task(task8)
+        response = testlist3.complete_task(task8)
+        self.assertEqual(response.completed, True)
 
     def test_complete_task_already_completed(self):
-        task8 = Task("apple", "test apple", True, 2)
-        task8.complete()
-        self.assertEqual(task8.completed, True)
+        testlist4 = TodoList("market")
+        task9 = Task("apple", "test apple", True, 2)
+        testlist4.add_task(task9)
+        response = testlist4.complete_task(task9)
+        self.assertEqual(response.completed, True)
 
     def test_undo_task_already_completed(self):
-        task11 = Task("apple", "test apple", True, 2)
+        testlist5 = TodoList("market")
+        task10 = Task("apple", "test apple", True, 2)
+        testlist5.add_task(task10)
 
-        response = task11.undo()
-        self.assertEqual(response, False)
+        response = testlist5.undo_task(task10)
+        self.assertEqual(response.completed, False)
 
     def test_undo_task_not_completed(self):
+        testlist6 = TodoList("market")
         task11 = Task("apple", "test apple", False, 2)
-
-        response = task11.undo()
-        self.assertEqual(response, False)
+        testlist6.add_task(task11)
+        response = testlist6.undo_task(task11)
+        self.assertEqual(response.completed, False)
 
     def test_order_task(self):
-        testlist5 = TodoList("market")
+        testlist7 = TodoList("market")
         task13 = Task("banana", " test banana", True, 1)
         task14 = Task("apple", "test apple", False, 2)
         task15 = Task("rice", "test rice", False, 3)
 
-        testlist5.add_task(task13)
-        testlist5.add_task(task14)
-        testlist5.add_task(task15)
+        testlist7.add_task(task13)
+        testlist7.add_task(task14)
+        testlist7.add_task(task15)
 
-        response = testlist5.order_task(task15, 0)
+        response = testlist7.order_task(task15, 0)
         self.assertEqual(response[0], task15)
 
     def test_order_task_with_task_not_existent_in_list(self):
