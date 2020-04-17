@@ -66,41 +66,36 @@ class Tests(unittest.TestCase):
 
     def test_order_task(self):
         testlist7 = TodoList("market")
-        task13 = Task("banana", " test banana", True, 1)
-        task14 = Task("apple", "test apple", False, 2)
-        task15 = Task("rice", "test rice", False, 3)
+        task1 = testlist7.create_task("banana", " test banana", True, 1)
+        task2 = testlist7.create_task("apple", "test apple", False, 2)
+        task3 = testlist7.create_task("rice", "test rice", False, 3)
 
-        testlist7.add_task(task13)
-        testlist7.add_task(task14)
-        testlist7.add_task(task15)
-
-        response = testlist7.order_task(task15, 0)
-        self.assertEqual(response[0], task15)
+        response = testlist7.order_task(task3, 0)
+        self.assertEqual(response[0], task3)
 
     def test_order_task_with_task_not_existent_in_list(self):
-        testlist6 = TodoList("market")
-        task16 = Task("banana", " test banana", True, 1)
-        task17 = Task("apple", "test apple", False, 2)
-        task18 = Task("rice", "test rice", False, 3)
-        task19 = Task("test", "big test", True, 1)
-
-        testlist6.add_task(task16)
-        testlist6.add_task(task17)
-        testlist6.add_task(task18)
+        testlist8 = TodoList("market")
+        testlist9 = TodoList("gym")
+        task1 = testlist8.create_task("banana", " test banana", True, 1)
+        task2 = testlist8.create_task("apple", "test apple", False, 2)
+        task3 = testlist8.create_task("rice", "test rice", False, 3)
+        task4 = testlist9.create_task("run", "run 50 minutes", True, 1)
 
         with self.assertRaises(todoListError):
-            testlist6.order_task(task19, 0)
+            testlist8.order_task(task4, 0)
 
     def test_edit_task(self):
-        testlist7 = TodoList("market")
-        task19 = Task("banana", " test banana", True, 1)
-        testlist7.add_task(task19)
-        testlist7.edit_task(task19, name="avocado")
-        self.assertEqual(task19.name, "avocado")
+        testlist10 = TodoList("market")
+        task1 = testlist10.create_task("banana", " test banana", True, 1)
+        testlist10.edit_task(task1, name="avocado")
+        self.assertEqual(task1.name, "avocado")
 
     def test_edit_task_not_existent_in_List(self):
-        testlist8 = TodoList("market")
-        task20 = Task("banana", " test banana", True, 1)
+        testlist11 = TodoList("market")
+        testlist12 = TodoList("Gym")
+        task = testlist11.create_task("banana", " test banana", True, 1)
 
         with self.assertRaises(todoListError):
-            testlist8.edit_task(task20, name="avocado")
+            testlist12.edit_task(task, name="avocado")
+
+    
