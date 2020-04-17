@@ -84,7 +84,6 @@ class Tests(unittest.TestCase):
         task16 = Task("banana", " test banana", True, 1)
         task17 = Task("apple", "test apple", False, 2)
         task18 = Task("rice", "test rice", False, 3)
-
         task19 = Task("test", "big test", True, 1)
 
         testlist6.add_task(task16)
@@ -93,3 +92,17 @@ class Tests(unittest.TestCase):
 
         with self.assertRaises(todoListError):
             testlist6.order_task(task19, 0)
+
+    def test_edit_task(self):
+        testlist7 = TodoList("market")
+        task19 = Task("banana", " test banana", True, 1)
+        testlist7.add_task(task19)
+        testlist7.edit_task(task19, name="avocado")
+        self.assertEqual(task19.name, "avocado")
+
+    def test_edit_task_not_existent_in_List(self):
+        testlist8 = TodoList("market")
+        task20 = Task("banana", " test banana", True, 1)
+
+        with self.assertRaises(todoListError):
+            testlist8.edit_task(task20, name="avocado")
