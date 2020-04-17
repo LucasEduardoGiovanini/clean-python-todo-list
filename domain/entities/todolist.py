@@ -17,6 +17,17 @@ class TodoList:
         else:
             return True
 
+    def edit_task(self,task:Task, name=None, description=None, completed=None, priority=None):
+        try:
+            self.tasks[self.tasks.index(task)].edit(name,description,completed,priority)
+        except ValueError as ve:
+            raise todoListError(ve,24,"update a task that does not exist in this list")
+        else:
+            return task
+
+    def edit_list_name(self,name = None):
+        self.name = name or self.name
+        return self.name
 
     def __str__(self):
         return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
