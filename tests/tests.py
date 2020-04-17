@@ -18,50 +18,43 @@ class Tests(unittest.TestCase):
 
     def test_add_task_to_list(self):
         testlist1 = TodoList("market")
-        task1 = Task("banana", "test banana", True, 1)
-
-        response = testlist1.add_task(task1)
-        index = response.index(task1)
-        self.assertEqual(response[index], task1)
+        response = testlist1.create_task("banana", "test banana", True, 1)
+        self.assertEqual(response, testlist1.tasks[0])
 
     def test_remove_task_to_list(self):
         testlist2 = TodoList("market")
-        task4 = Task("apple", "test apple", False, 2)
+        created_task = testlist2.create_task("apple", "test apple", False, 2)
 
-        testlist2.add_task(task4)
-
-        response = testlist2.remove_task(task4)
+        response = testlist2.remove_task(created_task)
         self.assertEqual(response, True)
 
     def test_remove_task_to_not_exist_in_list(self):
         testlist2false = TodoList("market")
-        task5 = Task("apple", "test apple", False, 2)
-        task6 = Task("crab", "test crab", False, 2)
-        testlist2false.add_task(task6)
+        testlist3false = TodoList("gym")
+        response = testlist3false.create_task("apple", "test apple", False, 2)
 
         with self.assertRaises(todoListError):
-            testlist2false.remove_task(task5)
+            testlist2false.remove_task(response)
 
     def test_complete_task_not_completed(self):
         testlist3 = TodoList("market")
-        task8 = Task("apple", "test apple", False, 2)
-        testlist3.add_task(task8)
-        response = testlist3.complete_task(task8)
+        task = testlist3.create_task("apple", "test apple", False, 2)
+
+        response = testlist3.complete_task(task)
         self.assertEqual(response.completed, True)
 
     def test_complete_task_already_completed(self):
         testlist4 = TodoList("market")
-        task9 = Task("apple", "test apple", True, 2)
-        testlist4.add_task(task9)
-        response = testlist4.complete_task(task9)
+        task = testlist4.create_task("apple", "test apple", True, 2)
+
+        response = testlist4.complete_task(task)
         self.assertEqual(response.completed, True)
 
     def test_undo_task_already_completed(self):
         testlist5 = TodoList("market")
-        task10 = Task("apple", "test apple", True, 2)
-        testlist5.add_task(task10)
+        task = testlist5.create_task("apple", "test apple", True, 2)
 
-        response = testlist5.undo_task(task10)
+        response = testlist5.undo_task(task)
         self.assertEqual(response.completed, False)
 
     def test_undo_task_not_completed(self):

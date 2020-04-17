@@ -11,6 +11,7 @@ class TodoList:
     def create_task(self, name: str, description: str, completed: bool, priority: int):
         task_created = Task(name, description, completed, priority)
         self.add_task(task_created)
+        return task_created
 
     def add_task(self, task: Task):
         self.tasks.append(task)
