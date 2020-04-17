@@ -1,11 +1,16 @@
 from domain.entities.task import Task
 from domain.exception.custom_exception import todoListError
+import operator
 
 
 class TodoList:
     def __init__(self, name):
         self.name = name
         self.tasks = list()
+
+    def create_task(self, name: str, description: str, completed: bool, priority: int):
+        task_created = Task(name, description, completed, priority)
+        self.add_task(task_created)
 
     def add_task(self, task: Task):
         self.tasks.append(task)
@@ -49,6 +54,10 @@ class TodoList:
 
     def __str__(self):
         return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
+
+    def order_task_priority(self):
+        self.tasks = sorted(self.tasks, key=operator.attrgetter("priority"))
+        return self.tasks
 
     def order_task(self, task_to_be_relocated: Task, position: int):
         self.remove_task(task_to_be_relocated)
