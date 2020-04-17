@@ -98,4 +98,13 @@ class Tests(unittest.TestCase):
         with self.assertRaises(todoListError):
             testlist12.edit_task(task, name="avocado")
 
-    
+    def test_order_tasks_by_priority(self):
+        testlist13 = TodoList("market")
+        task1 = testlist13.create_task("banana", " test banana", True, 3)
+        task2 = testlist13.create_task("apple", "test apple", False, 1)
+        task3 = testlist13.create_task("rice", "test rice", False, 2)
+        expected_result = [task2, task3, task1]
+
+        response = testlist13.order_task_priority()
+
+        self.assertEqual(response,expected_result)
