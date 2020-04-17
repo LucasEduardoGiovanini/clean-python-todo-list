@@ -9,6 +9,23 @@ class TodoList:
         self.tasks.append(task)
         return self.tasks
 
+    def undo_task(self,task:Task):
+        try:
+            self.tasks[self.tasks.index(task)].undo()
+        except ValueError as ve:
+            raise todoListError(ve, 14, "undo a task that does not exist in this list")
+        else:
+            return task
+
+    def complete_task(self,task:Task):
+        try:
+            self.tasks[self.tasks.index(task)].complete()
+        except ValueError as ve:
+            raise todoListError(ve, 14, "completing a task that does not exist in this list")
+        else:
+            return task
+
+
     def remove_task(self, task:Task):
         try:
            removed = self.tasks.remove(task)
