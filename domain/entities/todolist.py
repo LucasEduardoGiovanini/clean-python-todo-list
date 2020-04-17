@@ -5,11 +5,11 @@ class TodoList:
         self.name = name
         self.tasks = list()
 
-    def addTask(self,task:Task):
+    def add_task(self, task:Task):
         self.tasks.append(task)
         return self.tasks
 
-    def removeTask(self,task:Task):
+    def remove_task(self, task:Task):
         try:
            removed = self.tasks.remove(task)
         except ValueError as ve:
@@ -22,7 +22,7 @@ class TodoList:
         return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
 
 
-    def orderTasks(self,task_to_be_relocated:Task,position: int):
-        self.removeTask(task_to_be_relocated)
+    def order_task(self, task_to_be_relocated:Task, position: int):
+        self.remove_task(task_to_be_relocated)
         self.tasks.insert(position,task_to_be_relocated)
         return self.tasks

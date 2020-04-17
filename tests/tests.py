@@ -15,7 +15,7 @@ class Tests(unittest.TestCase):
         testlist1 = TodoList("market")
         task1 = Task("banana", "test banana", True, 1)
 
-        response = testlist1.addTask(task1)
+        response = testlist1.add_task(task1)
         index = response.index(task1)
         self.assertEqual(response[index], task1)
 
@@ -23,19 +23,19 @@ class Tests(unittest.TestCase):
         testlist2 = TodoList("market")
         task4 = Task("apple", "test apple", False, 2)
 
-        testlist2.addTask(task4)
+        testlist2.add_task(task4)
 
-        response = testlist2.removeTask(task4)
+        response = testlist2.remove_task(task4)
         self.assertEqual(response, True)
 
     def test_remove_task_to_not_exist_in_list(self):
         testlist2false = TodoList("market")
         task5 = Task("apple", "test apple", False, 2)
         task6 = Task("krab", "test krab", False, 2)
-        testlist2false.addTask(task6)
+        testlist2false.add_task(task6)
 
         with self.assertRaises(todoListError):
-            testlist2false.removeTask(task5)
+            testlist2false.remove_task(task5)
 
     def test_complete_task_not_completed(self):
         task8 = Task("apple", "test apple", False, 2)
@@ -65,11 +65,11 @@ class Tests(unittest.TestCase):
         task14 = Task("apple", "test apple", False, 2)
         task15 = Task("rice", "test rice", False, 3)
 
-        testlist5.addTask(task13)
-        testlist5.addTask(task14)
-        testlist5.addTask(task15)
+        testlist5.add_task(task13)
+        testlist5.add_task(task14)
+        testlist5.add_task(task15)
 
-        response = testlist5.orderTasks(task15, 0)
+        response = testlist5.order_task(task15, 0)
         self.assertEqual(response[0], task15)
 
     def test_order_task_with_task_not_existent_in_list(self):
@@ -80,9 +80,9 @@ class Tests(unittest.TestCase):
 
         task19 = Task("test", "big test", True, 1)
 
-        testlist6.addTask(task16)
-        testlist6.addTask(task17)
-        testlist6.addTask(task18)
+        testlist6.add_task(task16)
+        testlist6.add_task(task17)
+        testlist6.add_task(task18)
 
         with self.assertRaises(todoListError):
-            testlist6.orderTasks(task19, 0)
+            testlist6.order_task(task19, 0)
