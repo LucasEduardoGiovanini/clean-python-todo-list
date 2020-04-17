@@ -39,24 +39,24 @@ class Tests(unittest.TestCase):
 
     def test_complete_task_not_completed(self):
         task8 = Task("apple", "test apple", False, 2)
-        task8.completeTask()
+        task8.complete()
         self.assertEqual(task8.completed, True)
 
     def test_complete_task_already_completed(self):
         task8 = Task("apple", "test apple", True, 2)
-        task8.completeTask()
+        task8.complete()
         self.assertEqual(task8.completed, True)
 
     def test_undo_task_already_completed(self):
         task11 = Task("apple", "test apple", True, 2)
 
-        response = task11.undoTask()
+        response = task11.undo()
         self.assertEqual(response, False)
 
     def test_undo_task_not_completed(self):
         task11 = Task("apple", "test apple", False, 2)
 
-        response = task11.undoTask()
+        response = task11.undo()
         self.assertEqual(response, False)
 
     def test_order_task(self):
