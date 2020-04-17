@@ -11,6 +11,11 @@ class Tests(unittest.TestCase):
         response = TodoList("works of day")
         self.assertEqual(response.name, "works of day")
 
+    def test_edit_list_name(self):
+        testlist0 = TodoList("market")
+        testlist0.edit_list_name("testing")
+        self.assertEqual(testlist0.name, "testing")
+
     def test_add_task_to_list(self):
         testlist1 = TodoList("market")
         task1 = Task("banana", "test banana", True, 1)
