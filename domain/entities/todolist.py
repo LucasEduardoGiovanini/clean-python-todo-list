@@ -1,10 +1,12 @@
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
 import operator
+import uuid
 
 
 class TodoList:
     def __init__(self, name):
+        self.id = uuid.uuid4()
         self.name = name
         self.tasks = list()
 

@@ -107,4 +107,4 @@ class Tests(unittest.TestCase):
 
         response = testlist13.sort_tasks_by_priority()
 
-        self.assertEqual(response,expected_result)
+        self.assertEqual(response, expected_result)
