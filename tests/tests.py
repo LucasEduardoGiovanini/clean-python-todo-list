@@ -105,6 +105,6 @@ class Tests(unittest.TestCase):
         task3 = testlist13.create_task("rice", "test rice", False, 2)
         expected_result = [task2, task3, task1]
 
-        response = testlist13.order_task_priority()
+        response = testlist13.sort_tasks_by_priority()
 
         self.assertEqual(response,expected_result)

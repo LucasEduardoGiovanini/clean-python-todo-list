@@ -56,7 +56,7 @@ class TodoList:
     def __str__(self):
         return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
 
-    def order_task_priority(self):
+    def sort_tasks_by_priority(self):
         self.tasks = sorted(self.tasks, key=operator.attrgetter("priority"))
         return self.tasks
 
