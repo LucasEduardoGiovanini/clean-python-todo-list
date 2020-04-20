@@ -1,5 +1,5 @@
 from domain.entities.task import Task
-from domain.exception.custom_exception import todoListError
+from domain.exception.custom_exception import todoListValueError
 import operator
 
 
@@ -21,7 +21,7 @@ class TodoList:
         try:
             self.tasks[self.tasks.index(task)].undo()
         except ValueError as ve:
-            raise todoListError(ve, 14, "undo a task that does not exist in this list")
+            raise todoListValueError(ve, 14, "undo a task that does not exist in this list")
         else:
             return task
 
@@ -29,7 +29,7 @@ class TodoList:
         try:
             self.tasks[self.tasks.index(task)].complete()
         except ValueError as ve:
-            raise todoListError(ve, 14, "completing a task that does not exist in this list")
+            raise todoListValueError(ve, 14, "completing a task that does not exist in this list")
         else:
             return task
 
@@ -37,7 +37,7 @@ class TodoList:
         try:
             self.tasks.remove(task)
         except ValueError as ve:
-            raise todoListError(ve, 13, "removing a task that does not exist in this list")
+            raise todoListValueError(ve, 13, "removing a task that does not exist in this list")
         else:
             return True
 
@@ -45,7 +45,7 @@ class TodoList:
         try:
             self.tasks[self.tasks.index(task)].edit(name, description, completed, priority)
         except ValueError as ve:
-            raise todoListError(ve, 24, "update a task that does not exist in this list")
+            raise todoListValueError(ve, 24, "update a task that does not exist in this list")
         else:
             return task
 
