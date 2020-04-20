@@ -2,7 +2,7 @@ import unittest
 
 from domain.entities.todolist import TodoList
 from domain.entities.task import Task
-from domain.exception.custom_exception import todoListValueError
+from domain.exception.custom_exception import TodoListError
 
 
 class Tests(unittest.TestCase):
@@ -33,7 +33,7 @@ class Tests(unittest.TestCase):
         testlist3false = TodoList("gym")
         response = testlist3false.create_task("apple", "test apple", False, 2)
 
-        with self.assertRaises(todoListValueError):
+        with self.assertRaises(TodoListError):
             testlist2false.remove_task(response)
 
     def test_complete_task_not_completed(self):
@@ -81,7 +81,7 @@ class Tests(unittest.TestCase):
         task3 = testlist8.create_task("rice", "test rice", False, 3)
         task4 = testlist9.create_task("run", "run 50 minutes", True, 1)
 
-        with self.assertRaises(todoListValueError):
+        with self.assertRaises(TodoListError):
             testlist8.order_task(task4, 0)
 
     def test_edit_task(self):
@@ -95,7 +95,7 @@ class Tests(unittest.TestCase):
         testlist12 = TodoList("Gym")
         task = testlist11.create_task("banana", " test banana", True, 1)
 
-        with self.assertRaises(todoListValueError):
+        with self.assertRaises(TodoListError):
             testlist12.edit_task(task, name="avocado")
 
     def test_order_tasks_by_priority(self):

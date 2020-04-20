@@ -1,5 +1,5 @@
 from domain.entities.task import Task
-from domain.exception.custom_exception import todoListValueError
+from domain.exception.custom_exception import TodoListError
 import operator
 
 
@@ -21,7 +21,9 @@ class TodoList:
         try:
             self.tasks[self.tasks.index(task)].undo()
         except ValueError as ve:
-            raise todoListValueError(ve, 14, "undo a task that does not exist in this list")
+            raise TodoListError(ve, 22, "undo a task that does not exist in this list")
+        except IndexError as ie:
+            raise TodoListError(ie, 22, "the informed index is greater than the list")
         else:
             return task
 
@@ -29,7 +31,9 @@ class TodoList:
         try:
             self.tasks[self.tasks.index(task)].complete()
         except ValueError as ve:
-            raise todoListValueError(ve, 14, "completing a task that does not exist in this list")
+            raise TodoListError(ve, 30, "completing a task that does not exist in this list")
+        except IndexError as ie:
+            raise TodoListError(ie, 30, "the informed index is greater than the list")
         else:
             return task
 
@@ -37,7 +41,9 @@ class TodoList:
         try:
             self.tasks.remove(task)
         except ValueError as ve:
-            raise todoListValueError(ve, 13, "removing a task that does not exist in this list")
+            raise TodoListError(ve, 38, "removing a task that does not exist in this list")
+        except IndexError as ie:
+            raise TodoListError(ie, 38, "the informed index is greater than the list")
         else:
             return True
 
@@ -45,7 +51,9 @@ class TodoList:
         try:
             self.tasks[self.tasks.index(task)].edit(name, description, completed, priority)
         except ValueError as ve:
-            raise todoListValueError(ve, 24, "update a task that does not exist in this list")
+            raise TodoListError(ve, 46, "update a task that does not exist in this list")
+        except IndexError as ie:
+            raise TodoListError(ie, 46, "the informed index is greater than the list")
         else:
             return task
 
