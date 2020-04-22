@@ -113,3 +113,8 @@ class Tests(unittest.TestCase):
         testlist14 = TodoList("market")
         with self.assertRaises(TodoListError):
             testlist14.create_task("banana", " test banana", 5, 3)
+
+    def test_create_not_int_priority(self):
+        testlist15 = TodoList("market")
+        with self.assertRaises(TodoListError):
+            testlist15.create_task("banana", " test banana", True, "3")

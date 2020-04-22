@@ -12,7 +12,7 @@ class TodoList:
 
     def create_task(self, name: str, description: str, completed: bool, priority: int):
 
-        if isinstance(name, str) and isinstance(description, str) and isinstance(completed, bool) and isinstance(priority, int):
+        if isinstance(completed, bool) and isinstance(priority, int):
             task_created = Task(name, description, completed, priority)
             self.add_task(task_created)
             return task_created
