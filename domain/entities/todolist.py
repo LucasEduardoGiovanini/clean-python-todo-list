@@ -11,14 +11,9 @@ class TodoList:
         self.tasks = list()
 
     def create_task(self, name: str, description: str, completed: bool, priority: int):
-
-        if isinstance(completed, bool) and isinstance(priority, int):
-            task_created = Task(name, description, completed, priority)
-            self.add_task(task_created)
-            return task_created
-        else:
-            message_error = "Expected:completed =  bool, priority = int. Received: " + "completed = "+str(type(completed)) + " completed =" + str(type(priority))
-            raise TodoListError("Some parameter(s) informed are receiving inappropriate types", 13, message_error)
+        task_created = Task(name, description, completed, priority)
+        self.add_task(task_created)
+        return task_created
 
     def add_task(self, task: Task):
         self.tasks.append(task)

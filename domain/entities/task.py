@@ -1,6 +1,7 @@
 import uuid
 from domain.exception.custom_exception import TodoListError
 
+
 class Task:
     def __init__(self, name, description, completed, priority):
         self.id = uuid.uuid4()
@@ -14,26 +15,30 @@ class Task:
     def completed(self):
         try:
             return self._completed
-        except AttributeError as ae:
-            raise TodoListError(ae, 16, "the object type is not boolean")
+        except Exception as e:
+            raise TodoListError(e, 16, "the object type is None")
 
     # setter
     @completed.setter
     def completed(self, value: bool):
         if isinstance(value, bool):
             self._completed = value
+        else:
+            raise TodoListError("Type invalid", 22, "the object type is not Boolean")
 
     @property
     def priority(self):
         try:
             return self._priority
-        except AttributeError as ae:
-            raise TodoListError(ae, 31, "the object type is not Integer")
+        except Exception as e:
+            raise TodoListError(e, 31, "the object type is None")
 
     @priority.setter
     def priority(self, value: int):
         if isinstance(value, int):
             self._priority = value
+        else:
+            raise TodoListError("Type invalid", 36, "the object type is not Integer")
 
     def complete(self):
         self.completed = True
