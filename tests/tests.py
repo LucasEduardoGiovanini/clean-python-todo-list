@@ -108,3 +108,8 @@ class Tests(unittest.TestCase):
         response = testlist13.sort_tasks_by_priority()
 
         self.assertEqual(response, expected_result)
+
+    def test_create_not_bool_completed(self):
+        testlist14 = TodoList("market")
+        with self.assertRaises(TodoListError):
+            testlist14.create_task("banana", " test banana", 5, 3)
