@@ -17,7 +17,7 @@ class TodoList:
             self.add_task(task_created)
             return task_created
         else:
-            message_error = "Expected: str, str, bool, int / Received: ", type(name), type(description), type(completed), type(priority)
+            message_error = "Expected:completed =  bool, priority = int. Received: " + "completed = "+str(type(completed)) + " completed =" + str(type(priority))
             raise TodoListError("Some parameter(s) informed are receiving inappropriate types", 13, message_error)
 
     def add_task(self, task: Task):
