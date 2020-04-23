@@ -18,6 +18,14 @@ class UserRepository:
         datas = cursor.fetchone()
         return datas
 
+    def confirm_user_email(self, email: str):
+        cursor = self.connection.cursor()
+        arguments = (email,)
+        cursor.execute("SELECT email FROM tbUsuario WHERE email = %s", arguments)
+        if cursor.fetchone():
+            return True
+        return False
+
     def get_code_from_user_list(self, email: str):
         cursor = self.connection.cursor()
         arguments = (email,)
