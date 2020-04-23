@@ -13,10 +13,7 @@ class Task:
     # getter
     @property
     def completed(self):
-        try:
-            return self._completed
-        except Exception as e:
-            raise TodoListError(e, 16, "the object type is None")
+        return self._completed
 
     # setter
     @completed.setter
@@ -28,10 +25,7 @@ class Task:
 
     @property
     def priority(self):
-        try:
-            return self._priority
-        except Exception as e:
-            raise TodoListError(e, 31, "the object type is None")
+        return self._priority
 
     @priority.setter
     def priority(self, value: int):

@@ -44,8 +44,6 @@ class TodoList:
             self.tasks.remove(task)
         except ValueError as ve:
             raise TodoListError(ve, 38, "removing a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 38, "the informed index is greater than the list")
         else:
             return True
 
