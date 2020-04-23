@@ -1,4 +1,4 @@
-class todoListError(Exception):
+class TodoListError(Exception):
     def __init__(self, message: str, line: int, cause_message: str):
         self.message = message
         self.line = line
