@@ -139,4 +139,15 @@ class Tests(unittest.TestCase):
         new_task = repository.create_task(task1.id, selected_code, task1.name, task1.description, task1.completed, task1.priority, position_in_list)
         self.assertEqual(new_task['cod_task'], task1.id)
 
+    def test_all_user_list(self):
+        repository = UserRepository()
+        email_user = "lucas_giovanini"
+        lists = repository.get_code_from_user_list(email_user)
+        recovered_lists = []
+        for list_user in lists:
+            recovered_lists.append(repository.recover_user_list(list_user['cod_todolist']))
+        assert len(lists) > 0
+
+
+
 
