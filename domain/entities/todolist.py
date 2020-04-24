@@ -10,6 +10,22 @@ class TodoList:
         self.name = name
         self.tasks = list()
 
+    @property
+    def id(self):
+        return self._id
+
+    @id.setter
+    def id(self, value: str):
+        self._id = value
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value: str):
+        self._name = value
+
     def create_task(self, name: str, description: str, completed: bool, priority: int):
         task_created = Task(name, description, completed, priority)
         self.add_task(task_created)

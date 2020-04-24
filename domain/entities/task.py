@@ -10,6 +10,31 @@ class Task:
         self.completed = completed
         self.priority = priority  # informa a prioridade da task, exemplo: uma task com priridade 1 é mais importante que uma de prioridade 2
 
+    @property
+    def id(self):
+        return self._id
+
+    @id.setter
+    def id(self, value: str):
+        self._id = value
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value: str):
+        self._name = value
+
+    @property
+    def description(self):
+        return self._description
+
+    # setter
+    @description.setter
+    def description(self, value: str):
+        self._description = value
+
     # getter
     @property
     def completed(self):
