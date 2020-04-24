@@ -3,7 +3,7 @@ import unittest
 from domain.entities.todolist import TodoList
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
-
+from repositories import TodoListRepository,UserRepository
 
 class Tests(unittest.TestCase):
 
@@ -118,3 +118,12 @@ class Tests(unittest.TestCase):
         testlist15 = TodoList("market")
         with self.assertRaises(TodoListError):
             testlist15.create_task("banana", " test banana", True, "3")
+
+    def test_create_list_database(self):
+        email_user_test="lucas_giovanini"
+        testlist16 = TodoList("market")
+        repository = TodoListRepository()
+
+        response = repository.create_todo_list(email_user_test,testlist16.id, testlist16.name)
+
+        self.assertEqual(response['cod_todolist'], str(testlist16.id))

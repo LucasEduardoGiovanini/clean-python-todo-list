@@ -11,7 +11,7 @@ class TodoListRepository:
 
     def create_todo_list(self, email: str, id_code: str, list_name: str):
         cursor = self.connection.cursor()
-        arguments = (id_code, email, list_name)
+        arguments = (str(id_code), email, list_name)
         cursor.execute("INSERT INTO tbTodoList(cod_todolist, email, list_name) VALUES (%s, %s, %s)", arguments)
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTodoList WHERE cod_todolist = %s", arguments[0])
