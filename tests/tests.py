@@ -9,12 +9,12 @@ class Tests(unittest.TestCase):
 
     def test_create_list(self):
         response = TodoList("works of day")
-        self.assertEqual(response.name, "works of day")
+        self.assertEqual(response.todo_name, "works of day")
 
     def test_edit_list_name(self):
         testlist0 = TodoList("market")
         testlist0.edit_list_name("testing")
-        self.assertEqual(testlist0.name, "testing")
+        self.assertEqual(testlist0.todo_name, "testing")
 
     def test_add_task_to_list(self):
         testlist1 = TodoList("market")
@@ -88,7 +88,7 @@ class Tests(unittest.TestCase):
         testlist10 = TodoList("market")
         task1 = testlist10.create_task("banana", " test banana", True, 1)
         testlist10.edit_task(task1, name="avocado")
-        self.assertEqual(task1.name, "avocado")
+        self.assertEqual(task1.task_name, "avocado")
 
     def test_edit_task_not_existent_in_List(self):
         testlist11 = TodoList("market")
@@ -124,20 +124,20 @@ class Tests(unittest.TestCase):
         testlist16 = TodoList("market")
         repository = TodoListRepository()
 
-        response = repository.create_todo_list(email_user_test, testlist16.id, testlist16.name)
+        response = repository.create_todo_list(email_user_test, testlist16.id_todolist, testlist16.todo_name)
 
-        self.assertEqual(response['cod_todolist'],testlist16.id)
+        self.assertEqual(response['todolist_id'], testlist16.id_todolist)
 
     def test_create_task_database(self):
         repository = UserRepository()
         email_user = "lucas_giovanini"
         lists = repository.get_code_from_user_list(email_user)
-        selected_code = lists[1]['cod_todolist']
+        selected_code = lists[1]['todolist_id']
         repository = TodoListRepository()
         position_in_list = repository.get_the_next_free_position(selected_code)
         task1 = Task("work", "i need finish my code", True, 1)
-        new_task = repository.create_task(task1.id, selected_code, task1.name, task1.description, task1.completed, task1.priority, position_in_list)
-        self.assertEqual(new_task['cod_task'], task1.id)
+        new_task = repository.create_task(task1.task_id, selected_code, task1.task_name, task1.description, task1.completed, task1.priority, position_in_list)
+        self.assertEqual(new_task['task_id'], task1.task_id)
 
     def test_all_user_list(self):
         repository = UserRepository()
@@ -145,7 +145,7 @@ class Tests(unittest.TestCase):
         lists = repository.get_code_from_user_list(email_user)
         recovered_lists = []
         for list_user in lists:
-            recovered_lists.append(repository.recover_user_list(list_user['cod_todolist']))
+            recovered_lists.append(repository.recover_user_list(list_user['todolist_id']))
         assert len(lists) > 0
 
 

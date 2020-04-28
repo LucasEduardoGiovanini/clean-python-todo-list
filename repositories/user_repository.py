@@ -29,12 +29,12 @@ class UserRepository:
     def get_code_from_user_list(self, email: str):
         cursor = self.connection.cursor()
         arguments = (email,)
-        cursor.execute("SELECT cod_todolist FROM tbTodoList WHERE email = %s", arguments)
+        cursor.execute("SELECT todolist_id FROM tbTodoList WHERE email = %s", arguments)
         result = cursor.fetchall()
         return result
 
     def recover_user_list(self, list_id: str):
         cursor = self.connection.cursor()
         arguments = (list_id,)
-        cursor.execute("SELECT * FROM tbTask WHERE cod_todolist = %s", arguments)
+        cursor.execute("SELECT * FROM tbTask WHERE todolist_id = %s", arguments)
         return cursor.fetchall()

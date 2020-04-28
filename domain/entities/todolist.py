@@ -5,9 +5,9 @@ import uuid
 
 
 class TodoList:
-    def __init__(self, name):
-        self.id = str(uuid.uuid4())
-        self.name = name
+    def __init__(self, todo_name):
+        self.id_todolist = str(uuid.uuid4())
+        self.todo_name = todo_name
         self.tasks = list()
 
     def create_task(self, name: str, description: str, completed: bool, priority: int):
@@ -58,11 +58,11 @@ class TodoList:
             return task
 
     def edit_list_name(self, name=None):
-        self.name = name or self.name
-        return self.name
+        self.todo_name = name or self.todo_name
+        return self.todo_name
 
     def __str__(self):
-        return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
+        return "nome lista: " + self.todo_name + " tarefas: " + str(self.tasks)
 
     def sort_tasks_by_priority(self):
         self.tasks = sorted(self.tasks, key=operator.attrgetter("priority"))
