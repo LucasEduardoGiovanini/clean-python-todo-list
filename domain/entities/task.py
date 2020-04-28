@@ -1,10 +1,9 @@
-import uuid
 from domain.exception.custom_exception import TodoListError
 
 
 class Task:
-    def __init__(self, task_name, description, completed, priority):
-        self.task_id = str(uuid.uuid4())
+    def __init__(self, task_id, task_name, description, completed, priority):
+        self.task_id = task_id
         self.task_name = task_name
         self.description = description
         self.completed = completed
