@@ -1,4 +1,6 @@
 import pymysql
+from domain.entities.task import Task
+from domain.entities.todolist import TodoList
 
 
 class TodoListRepository:
@@ -15,7 +17,8 @@ class TodoListRepository:
         cursor.execute("INSERT INTO tbTodoList(todolist_id, email, todo_name) VALUES (%s, %s, %s)", arguments)
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTodoList WHERE todolist_id = %s", arguments[0])
-        return cursor.fetchone()
+        result_dictionary = cursor.fetchone()
+        return TodoList(result_dictionary['todolist_id'], result_dictionary['todo_name'])
 
     def get_the_next_free_position(self, id_list: str):# pego a maior posição da fila
         cursor = self.connection.cursor()
@@ -30,4 +33,5 @@ class TodoListRepository:
         cursor.execute("INSERT INTO tbTask(task_id,todolist_id,task_name,descripton,completed,priority,queue_position) VALUES (%s, %s, %s,%s,%s,%s,%s)", arguments)
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTask WHERE task_id = %s", arguments[0])
-        return cursor.fetchone()
+        result_dictionary = cursor.fetchone()
+        return TodoList().create_task(result_dictionary['task_id'], result_dictionary['task_name'], result_dictionary['descripton'], result_dictionary['completed'], result_dictionary['priority'])

@@ -5,8 +5,8 @@ import uuid
 
 
 class TodoList:
-    def __init__(self, id_todolist, todo_name):
-        self.id_todolist = id_todolist
+    def __init__(self, todolist_id, todo_name):
+        self.todolist_id = todolist_id
         self.todo_name = todo_name
         self.tasks = list()
 

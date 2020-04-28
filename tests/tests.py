@@ -120,23 +120,22 @@ class Tests(unittest.TestCase):
 
     def test_create_list_database(self):
         email_user_test = "lucas_giovanini"
-        testlist16 = TodoList(str(uuid.uuid4()), "market")
+        identifier = str(uuid.uuid4())
         repository = TodoListRepository()
-
-        response = repository.create_todo_list(email_user_test, testlist16.id_todolist, testlist16.todo_name)
-
-        self.assertEqual(response['todolist_id'], testlist16.id_todolist)
+        response = repository.create_todo_list(email_user_test, identifier, "market")
+        self.assertEqual(response.todolist_id, identifier)
 
     def test_create_task_database(self):
         repository = UserRepository()
         email_user = "lucas_giovanini"
+        identifier = str(uuid.uuid4())
         lists = repository.get_code_from_user_list(email_user)
         selected_code = lists[1]['todolist_id']
         repository = TodoListRepository()
         position_in_list = repository.get_the_next_free_position(selected_code)
-        task1 = Task(str(uuid.uuid4()), "work", "i need finish my code", True, 1)
-        new_task = repository.create_task(task1.task_id, selected_code, task1.task_name, task1.description, task1.completed, task1.priority, position_in_list)
-        self.assertEqual(new_task['task_id'], task1.task_id)
+        response = repository.create_task(identifier, selected_code, "work", "i need finish my code", True, 1, position_in_list )
+        print(response)
+        self.assertEqual(response.task_id, identifier)
 
     def test_all_user_list(self):
         repository = UserRepository()
