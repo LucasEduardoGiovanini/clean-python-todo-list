@@ -1,12 +1,12 @@
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
 import operator
-import uuid
 
 
 class TodoList:
-    def __init__(self, todo_name):
+    def __init__(self, todo_name, email_creator):
         self.todo_name = todo_name
+        self.email_creator = email_creator
         self.tasks = list()
 
     def create_task(self, name: str, description: str, completed: bool, priority: int):

@@ -17,7 +17,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(testlist0.todo_name, "testing")
 
     def test_add_task_to_list(self):
-        testlist1 = TodoList(str(uuid.uuid4()), "market")
+        testlist1 = TodoList("market")
+
         response = testlist1.create_task("banana", "test banana", True, 1)
         self.assertEqual(response, testlist1.tasks[0])
 
