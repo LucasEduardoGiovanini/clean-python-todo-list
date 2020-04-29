@@ -34,4 +34,5 @@ class TodoListRepository:
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTask WHERE todolist_id = %s AND task_name = %s AND descripton = %s AND completed = %s AND priority = %s AND queue_position = %s", arguments)
         result_dictionary = cursor.fetchone()
-        return TodoList().create_task(result_dictionary['task_name'], result_dictionary['descripton'], bool(result_dictionary['completed']), int(result_dictionary['priority']))
+
+        return Task(result_dictionary['todolist_id'], result_dictionary['task_name'], result_dictionary['descripton'], bool(result_dictionary['completed']), int(result_dictionary['priority']))
