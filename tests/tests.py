@@ -3,7 +3,7 @@ import uuid
 from domain.entities.todolist import TodoList
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
-from repositories import TodoListRepository,UserRepository
+from repositories import TodoListRepository, UserRepository
 
 class Tests(unittest.TestCase):
 
@@ -18,7 +18,7 @@ class Tests(unittest.TestCase):
 
     def test_add_task_to_list(self):
         testlist1 = TodoList(str(uuid.uuid4()), "market")
-        response = testlist1.create_task( "banana", "test banana", True, 1)
+        response = testlist1.create_task("banana", "test banana", True, 1)
         self.assertEqual(response, testlist1.tasks[0])
 
     def test_remove_task_to_list(self):
@@ -119,31 +119,25 @@ class Tests(unittest.TestCase):
             testlist15.create_task("banana", " test banana", True, "3")
 
     def test_create_list_database(self):
-        email_user_test = "lucas_giovanini"
+        email_user_test = "test_email"
         repository = TodoListRepository()
         response = repository.create_todo_list(email_user_test, "market")
         self.assertEqual(response.task_name, "market")
 
     def test_create_task_database(self):
         repository = UserRepository()
-        email_user = "lucas_giovanini"
-        lists = repository.get_code_from_user_list(email_user)
-        selected_code = lists[1]['todolist_id']
+        lists = repository.get_all_lists_id_of_a_user("test_email")  # pego todos os ids das to do lists de um usuário
+        selected_code = lists[1]['todolist_id']  # escolho a segunda lista (isso não causará problemas, pois no meu banco de dados, o usuário teste sempre terá essas duas listas)
         repository = TodoListRepository()
-        position_in_list = repository.get_the_next_free_position(selected_code)
-        response = repository.create_task(identifier, selected_code, "work", "i need finish my code", True, 1, position_in_list )
-        print(response)
-        self.assertEqual(response.task_id, identifier)
+        position_in_list = repository.get_the_next_free_position(selected_code)  # verifico qual será a proxima posição possível para inserir a task
+        response = repository.create_task(selected_code, "work", "i need finish my code", True, 1, position_in_list)  #crio a task na posição
+        self.assertEqual(response.task_name, "work")
 
     def test_all_user_list(self):
         repository = UserRepository()
-        email_user = "lucas_giovanini"
-        lists = repository.get_code_from_user_list(email_user)
+        email_user = "test_email"
+        lists = repository.get_all_lists_id_of_a_user(email_user)
         recovered_lists = []
         for list_user in lists:
             recovered_lists.append(repository.recover_user_list(list_user['todolist_id']))
         assert len(lists) > 0
-
-
-
-

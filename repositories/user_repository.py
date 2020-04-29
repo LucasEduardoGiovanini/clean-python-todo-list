@@ -26,7 +26,7 @@ class UserRepository:
             return True
         return False
 
-    def get_code_from_user_list(self, email: str):
+    def get_all_lists_id_of_a_user(self, email: str):
         cursor = self.connection.cursor()
         arguments = (email,)
         cursor.execute("SELECT todolist_id FROM tbTodoList WHERE email = %s", arguments)
