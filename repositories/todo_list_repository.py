@@ -36,3 +36,10 @@ class TodoListRepository:
         result_dictionary = cursor.fetchone()
 
         return Task(result_dictionary['todolist_id'], result_dictionary['task_name'], result_dictionary['descripton'], bool(result_dictionary['completed']), int(result_dictionary['priority']))
+
+    def recover_list_id_by_namelist_and_email(self, name_list: str, email: str):
+        cursor = self.connection.cursor()
+        arguments = (name_list, email)
+        cursor.execute("SELECT todolist_id FROM tbTodoList WHERE todo_name = %s AND email = %s ",arguments)
+        result = cursor.fetchone()
+        return result if result is not None else False

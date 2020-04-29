@@ -1,5 +1,4 @@
 import unittest
-import uuid
 from domain.entities.todolist import TodoList
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
@@ -8,23 +7,25 @@ from repositories import TodoListRepository, UserRepository
 class Tests(unittest.TestCase):
 
     def test_create_list(self):
-        response = TodoList("works of day")
+        response = TodoList("works of day", "test_email")
         self.assertEqual(response.todo_name, "works of day")
 
     def test_edit_list_name(self):
-        testlist0 = TodoList("market")
+        testlist0 = TodoList("market", "test_email")
         testlist0.edit_list_name("testing")
         self.assertEqual(testlist0.todo_name, "testing")
 
     def test_add_task_to_list(self):
-        testlist1 = TodoList("market")
-
-        response = testlist1.create_task("banana", "test banana", True, 1)
+        testlist1 = TodoList("market", "test_email")
+        todolist_id = TodoListRepository().recover_list_id_by_namelist_and_email(testlist1.todo_name, testlist1.email_creator)
+        response = testlist1.create_task(todolist_id, "banana", "test banana", True, 1)
         self.assertEqual(response, testlist1.tasks[0])
 
     def test_remove_task_to_list(self):
-        testlist2 = TodoList("market")
-        created_task = testlist2.create_task("apple", "test apple", False, 2)
+        testlist2 = TodoList("market", "test_email")
+        todolist_id = TodoListRepository().recover_list_id_by_namelist_and_email(testlist2.todo_name, testlist2.email_creator)
+
+        created_task = testlist2.create_task(todolist_id, "apple", "test apple", False, 2)
 
         response = testlist2.remove_task(created_task)
         self.assertEqual(response, True)
