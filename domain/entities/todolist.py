@@ -5,13 +5,12 @@ import uuid
 
 
 class TodoList:
-    def __init__(self, todolist_id, todo_name):
-        self.todolist_id = todolist_id
+    def __init__(self, todo_name):
         self.todo_name = todo_name
         self.tasks = list()
 
-    def create_task(self, task_id: str, name: str, description: str, completed: bool, priority: int):
-        task_created = Task(task_id, name, description, completed, priority)
+    def create_task(self, name: str, description: str, completed: bool, priority: int):
+        task_created = Task(name, description, completed, priority)
         self.add_task(task_created)
         return task_created
 

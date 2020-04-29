@@ -2,8 +2,7 @@ from domain.exception.custom_exception import TodoListError
 
 
 class Task:
-    def __init__(self, task_id, task_name, description, completed, priority):
-        self.task_id = task_id
+    def __init__(self, task_name, description, completed, priority):
         self.task_name = task_name
         self.description = description
         self.completed = completed
