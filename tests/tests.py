@@ -154,7 +154,7 @@ class Tests(unittest.TestCase):
         email_user_test = "test_email"
         repository = TodoListRepository()
         response = repository.create_todo_list(email_user_test, "market")
-        self.assertEqual(response.task_name, "market")
+        self.assertEqual(response.todo_name, "market")
 
     def test_create_task_database(self):
         repository = UserRepository()

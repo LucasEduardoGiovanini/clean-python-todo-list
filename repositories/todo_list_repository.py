@@ -18,7 +18,7 @@ class TodoListRepository:
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTodoList WHERE email = %s AND todo_name = %s", arguments)
         result_dictionary = cursor.fetchone()
-        return TodoList(result_dictionary['todo_name'])
+        return TodoList(result_dictionary['todo_name'], result_dictionary['email'])
 
     def get_the_next_free_position(self, id_list: str):# pego a maior posição da fila
         cursor = self.connection.cursor()
