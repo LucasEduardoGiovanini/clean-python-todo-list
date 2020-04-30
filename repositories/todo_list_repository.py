@@ -27,8 +27,9 @@ class TodoListRepository:
         result = cursor.fetchone()
         return result['max(queue_position)']+1 if result['max(queue_position)'] is not None else 0# se não tiver nenhuma task, retorno a primeira posição disponível.
 
-    def create_task(self, id_list: str, name: str, description: str, completed: bool, priority: int, queue_position: int):
+    def create_task(self, id_list: str, name: str, description: str, completed: bool, priority: int):
         cursor = self.connection.cursor()
+        queue_position = self.get_the_next_free_position(id_list)
         arguments = (id_list, name, description, completed, priority, queue_position)
         cursor.execute("INSERT INTO tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES (%s, %s,%s,%s,%s,%s)", arguments)
         self.connection.commit()
@@ -56,3 +57,11 @@ class TodoListRepository:
         arguments = (list_id,)
         cursor.execute("SELECT * FROM tbTask WHERE todolist_id = %s", arguments)
         return cursor.fetchall()
+
+    def reinsert_modified_task_into_database(self, task: Task): # essa função será chamada ao final de cada teste para reinserir as alterações no banco
+        cursor = self.connection.cursor()
+        arguments = (task.task_name, task.description, task.completed, task.priority, task.todolist_id)
+        cursor.execute("UPDATE tbTask SET task_name = %s AND descripton = %s AND completed = %s AND priority = %s WHERE todolist_id = %s", arguments)
+        self.connection.commit()
+        cursor.execute("SELECT * FROM tbTask WHERE task_name = %s AND descripton = %s AND completed = %s AND priority = %s AND todolist_id = %s", arguments)
+        return cursor.fetchone()

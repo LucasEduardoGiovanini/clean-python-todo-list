@@ -48,7 +48,6 @@ class Tests(unittest.TestCase):
         todolist_id = TodoListRepository().recover_list_id_by_namelist_and_email(testlist3.todo_name,
                                                                                  testlist3.email_creator)
         task = testlist3.create_task(todolist_id, "apple", "test apple", False, 2)
-
         response = testlist3.complete_task(task)
         self.assertEqual(response.completed, True)
 
@@ -56,7 +55,7 @@ class Tests(unittest.TestCase):
         testlist4 = TodoList("market", "test_email")
         todolist_id = TodoListRepository().recover_list_id_by_namelist_and_email(testlist4.todo_name,
                                                                                  testlist4.email_creator)
-        task = testlist4.create_task(todolist_id, "apple", "test apple", True, 2)
+        task = testlist4.create_task(todolist_id['todolist_id'], "apple", "test apple", True, 2)
 
         response = testlist4.complete_task(task)
         self.assertEqual(response.completed, True)
@@ -160,8 +159,7 @@ class Tests(unittest.TestCase):
         repository = TodoListRepository()
         lists = repository.get_all_lists_id_of_a_user("test_email")  # pego todos os ids das to do lists de um usuário
         selected_code = lists[1]['todolist_id']  # escolho a segunda lista (isso não causará problemas, pois no meu banco de dados, o usuário teste sempre terá essas duas listas)
-        position_in_list = repository.get_the_next_free_position(selected_code)  # verifico qual será a proxima posição possível para inserir a task
-        response = repository.create_task(selected_code, "work", "i need finish my code", True, 1, position_in_list)  #crio a task na posição
+        response = repository.create_task(selected_code, "work", "i need finish my code", True, 1)  #crio a task na posição
         self.assertEqual(response.task_name, "work")
 
     def test_all_user_list(self):
