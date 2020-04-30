@@ -43,3 +43,16 @@ class TodoListRepository:
         cursor.execute("SELECT todolist_id FROM tbTodoList WHERE todo_name = %s AND email = %s ",arguments)
         result = cursor.fetchone()
         return result if result is not None else False
+
+    def get_all_lists_id_of_a_user(self, email: str):
+        cursor = self.connection.cursor()
+        arguments = (email,)
+        cursor.execute("SELECT todolist_id FROM tbTodoList WHERE email = %s", arguments)
+        result = cursor.fetchall()
+        return result
+
+    def recover_all_tasks_from_list(self, list_id: str):
+        cursor = self.connection.cursor()
+        arguments = (list_id,)
+        cursor.execute("SELECT * FROM tbTask WHERE todolist_id = %s", arguments)
+        return cursor.fetchall()

@@ -2,7 +2,7 @@ import unittest
 from domain.entities.todolist import TodoList
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
-from repositories import TodoListRepository, UserRepository
+from repositories import TodoListRepository
 
 
 class Tests(unittest.TestCase):
@@ -157,19 +157,18 @@ class Tests(unittest.TestCase):
         self.assertEqual(response.todo_name, "market")
 
     def test_create_task_database(self):
-        repository = UserRepository()
+        repository = TodoListRepository()
         lists = repository.get_all_lists_id_of_a_user("test_email")  # pego todos os ids das to do lists de um usuário
         selected_code = lists[1]['todolist_id']  # escolho a segunda lista (isso não causará problemas, pois no meu banco de dados, o usuário teste sempre terá essas duas listas)
-        repository = TodoListRepository()
         position_in_list = repository.get_the_next_free_position(selected_code)  # verifico qual será a proxima posição possível para inserir a task
         response = repository.create_task(selected_code, "work", "i need finish my code", True, 1, position_in_list)  #crio a task na posição
         self.assertEqual(response.task_name, "work")
 
     def test_all_user_list(self):
-        repository = UserRepository()
+        repository = TodoListRepository()
         email_user = "test_email"
         lists = repository.get_all_lists_id_of_a_user(email_user)
         recovered_lists = []
         for list_user in lists:
-            recovered_lists.append(repository.recover_user_list(list_user['todolist_id']))
+            recovered_lists.append(repository.recover_all_tasks_from_list(list_user['todolist_id']))
         assert len(lists) > 0
