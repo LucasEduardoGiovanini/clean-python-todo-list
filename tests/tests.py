@@ -8,7 +8,7 @@ from repositories import TodoListRepository
 class Tests(unittest.TestCase):
 
     def test_create_list(self):
-        response = TodoList("works of day", "test_email")
+        response = TodoListRepository().create_todo_list("test_email", "works of day")
         self.assertEqual(response.todo_name, "works of day")
 
     def test_edit_list_name(self):
