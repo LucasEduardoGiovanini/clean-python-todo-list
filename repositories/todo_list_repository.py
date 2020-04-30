@@ -44,12 +44,18 @@ class TodoListRepository:
         result = cursor.fetchone()
         return result if result is not None else False
 
-    def get_all_lists_id_of_a_user(self, email: str):
+    def get_all_a_user_list_with_tasks(self, email: str):
         cursor = self.connection.cursor()
+        all_todo_lists_user = []
         arguments = (email,)
-        cursor.execute("SELECT todolist_id FROM tbTodoList WHERE email = %s", arguments)
-        result = cursor.fetchall()
-        return result
+        cursor.execute("SELECT * FROM tbTodoList WHERE email = %s", arguments)
+        all_todolists = cursor.fetchall()
+        for todo_list in all_todolists:# percorro todas as listas
+            recovered_list = TodoList(todo_list['todo_name'], todo_list['email']) #crio o objeto lista na aplicação
+            tasks = self.recover_all_tasks_from_list(todo_list['todolist_id']) #recupero todas as tasks dessa lista
+            one_todo_list = [recovered_list, tasks]
+            all_todo_lists_user.append(one_todo_list) #faço um append de uma tupla, contendo a lista e suas tarefas
+        return all_todo_lists_user
 
     def recover_all_tasks_from_list(self, list_id: str):
         list_of_tasks = []

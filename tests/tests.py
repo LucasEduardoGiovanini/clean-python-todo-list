@@ -157,16 +157,13 @@ class Tests(unittest.TestCase):
 
     def test_create_task_database(self):
         repository = TodoListRepository()
-        lists = repository.get_all_lists_id_of_a_user("test_email")  # pego todos os ids das to do lists de um usuário
-        selected_code = lists[1]['todolist_id']  # escolho a segunda lista (isso não causará problemas, pois no meu banco de dados, o usuário teste sempre terá essas duas listas)
-        response = repository.create_task(selected_code, "work", "i need finish my code", True, 1)  #crio a task na posição
+        selected_code = repository.recover_list_id_by_namelist_and_email("market", "test_email")
+        response = repository.create_task(selected_code['todolist_id'], "work", "i need finish my code", True, 1)  #crio a task na posição
+
         self.assertEqual(response.task_name, "work")
 
     def test_all_user_list(self):
         repository = TodoListRepository()
         email_user = "test_email"
-        lists = repository.get_all_lists_id_of_a_user(email_user)
-        recovered_lists = []
-        for list_user in lists:
-            recovered_lists.append(repository.recover_all_tasks_from_list(list_user['todolist_id']))
+        lists = repository.get_all_a_user_list_with_tasks(email_user)
         assert len(lists) > 0
