@@ -35,7 +35,6 @@ class TodoListRepository:
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTask WHERE todolist_id = %s AND task_name = %s AND descripton = %s AND completed = %s AND priority = %s AND queue_position = %s", arguments)
         result_dictionary = cursor.fetchone()
-
         return Task(result_dictionary['todolist_id'], result_dictionary['task_name'], result_dictionary['descripton'], bool(result_dictionary['completed']), int(result_dictionary['priority']))
 
     def recover_list_id_by_namelist_and_email(self, name_list: str, email: str):
@@ -53,10 +52,14 @@ class TodoListRepository:
         return result
 
     def recover_all_tasks_from_list(self, list_id: str):
+        list_of_tasks = []
         cursor = self.connection.cursor()
         arguments = (list_id,)
         cursor.execute("SELECT * FROM tbTask WHERE todolist_id = %s", arguments)
-        return cursor.fetchall()
+        tasks = cursor.fetchall()
+        for task in tasks:
+            list_of_tasks.append(Task(task['todolist_id'], task['task_name'], task['descripton'], bool(task['completed']), int(task['priority'])))
+        return list_of_tasks
 
     def reinsert_modified_task_into_database(self, task: Task): # essa função será chamada ao final de cada teste para reinserir as alterações no banco
         cursor = self.connection.cursor()
