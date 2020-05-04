@@ -7,7 +7,6 @@ class TodoList:
     def __init__(self, todo_name, email_creator):
         self.todo_name = todo_name
         self.email_creator = email_creator
-        self.tasks = list()
 
     def create_task(self, todolist_id, name: str, description: str, completed: bool, priority: int):
         task_created = Task(todolist_id, name, description, completed, priority)
@@ -19,42 +18,17 @@ class TodoList:
         return self.tasks
 
     def undo_task(self, task: Task):
-        try:
-            self.tasks[self.tasks.index(task)].undo()
-        except ValueError as ve:
-            raise TodoListError(ve, 22, "undo a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 22, "the informed index is greater than the list")
-        else:
-            return task
+            return task.undo()
 
     def complete_task(self, task: Task):
-        try:
-            self.tasks[self.tasks.index(task)].complete()
-        except ValueError as ve:
-            raise TodoListError(ve, 30, "completing a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 30, "the informed index is greater than the list")
-        else:
-            return task
+            return task.complete()
 
     def remove_task(self, task: Task):
-        try:
-            self.tasks.remove(task)
-        except ValueError as ve:
-            raise TodoListError(ve, 38, "removing a task that does not exist in this list")
-        else:
-            return True
+        del task
+        return True
 
     def edit_task(self, task: Task, name=None, description=None, completed=None, priority=None):
-        try:
-            self.tasks[self.tasks.index(task)].edit(name, description, completed, priority)
-        except ValueError as ve:
-            raise TodoListError(ve, 46, "update a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 46, "the informed index is greater than the list")
-        else:
-            return task
+        return task.edit(name, description, completed, priority)
 
     def edit_list_name(self, name=None):
         self.todo_name = name or self.todo_name

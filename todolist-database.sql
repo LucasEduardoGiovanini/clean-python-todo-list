@@ -32,9 +32,9 @@ foreign key (todolist_id) references tbTodoList(todolist_id)
 insert into tbUsuario(email,senha) VALUES("test_email","testemail");
 insert into tbTodoList(email,todo_name) VALUES("test_email","works of day");
 insert into tbTodoList(email,todo_name) VALUES("test_email","cooking");
-insert into tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES ("a1eb1875-8a1a-11ea-aae7-9829a6e52d34","gym","monday i do leg training and Wednesday i do weightlifting",False,2,1);
-insert into tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES ("a1fb84d9-8a1a-11ea-aae7-9829a6e52d34","cook","cooking spaghetti for the lunch",False,1,0);
-insert into tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES ("a1fb84d9-8a1a-11ea-aae7-9829a6e52d34","cook","cooking spaghetti for the lunch",False,1,0);
+insert into tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES ("f578b004-8df6-11ea-bc9c-0250cc5339c3","gym","monday i do leg training and Wednesday i do weightlifting",False,2,1);
+insert into tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES ("f578b004-8df6-11ea-bc9c-0250cc5339c3","cook","cooking spaghetti for the lunch",False,1,0);
+insert into tbTask(todolist_id,task_name,descripton,completed,priority,queue_position) VALUES ("f578b004-8df6-11ea-bc9c-0250cc5339c3","cook","cooking spaghetti for the lunch",False,1,0);
 select * from tbUsuario;
 select * from tbTodoList;
 select * from tbTask;
