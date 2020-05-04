@@ -44,11 +44,12 @@ class Tests(unittest.TestCase):
             testlist2false.remove_task(response)
 
     def test_complete_task_not_completed(self):
-        testlist3 = TodoList("market", "test_email")
+        testlist3 = TodoListRepository().create_todo_list("test_email", "market")
         todolist_id = TodoListRepository().recover_list_id_by_namelist_and_email(testlist3.todo_name,
                                                                                  testlist3.email_creator)
-        task = testlist3.create_task(todolist_id, "apple", "test apple", False, 2)
+        task = TodoListRepository().create_task(todolist_id['todolist_id'], "apple", "test apple", False, 2)
         response = testlist3.complete_task(task)
+        TodoListRepository().reinsert_modified_task_into_database(response)
         self.assertEqual(response.completed, True)
 
     def test_complete_task_already_completed(self):

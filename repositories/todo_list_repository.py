@@ -70,7 +70,7 @@ class TodoListRepository:
     def reinsert_modified_task_into_database(self, task: Task): # essa função será chamada ao final de cada teste para reinserir as alterações no banco
         cursor = self.connection.cursor()
         arguments = (task.task_name, task.description, task.completed, task.priority, task.todolist_id)
-        cursor.execute("UPDATE tbTask SET task_name = %s AND descripton = %s AND completed = %s AND priority = %s WHERE todolist_id = %s", arguments)
+        cursor.execute("UPDATE tbTask SET task_name = %s, descripton = %s, completed = %s, priority = %s WHERE todolist_id = %s", arguments)
         self.connection.commit()
         cursor.execute("SELECT * FROM tbTask WHERE task_name = %s AND descripton = %s AND completed = %s AND priority = %s AND todolist_id = %s", arguments)
         return cursor.fetchone()

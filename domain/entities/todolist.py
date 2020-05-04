@@ -18,10 +18,12 @@ class TodoList:
         return self.tasks
 
     def undo_task(self, task: Task):
-            return task.undo()
+        task.undo()
+        return task
 
     def complete_task(self, task: Task):
-            return task.complete()
+        task.complete()
+        return task
 
     def remove_task(self, task: Task):
         del task
