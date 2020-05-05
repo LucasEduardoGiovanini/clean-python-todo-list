@@ -17,11 +17,15 @@ class Tests(unittest.TestCase):
         self.assertEqual(testlist0.todo_name, "testing")
 
     def test_add_task_to_list(self):
-        testlist1 = TodoList("market", "test_email")
+        testlist1 = TodoListRepository().create_todo_list("test_email", "market")
         todolist_id = TodoListRepository().recover_list_id_by_namelist_and_email(testlist1.todo_name,
                                                                                  testlist1.email_creator)
-        response = testlist1.create_task(todolist_id, "banana", "test banana", True, 1)
-        self.assertEqual(response, testlist1.tasks[0])
+        task = TodoListRepository().create_task(todolist_id['todolist_id'], "banana", "test banana", True, 1)
+
+        tasks_of_list = TodoListRepository().recover_all_tasks_from_list(todolist_id['todolist_id']) #pego todas as tasks dessa lista
+
+        response = testlist1.task_exists_in_list(task, tasks_of_list)
+        self.assertEqual(response, True)
 
     def test_remove_task_to_list(self):
         testlist2 = TodoList("market", "test_email")

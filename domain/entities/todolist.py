@@ -29,6 +29,12 @@ class TodoList:
         del task
         return True
 
+    def task_exists_in_list(self, task: Task, tasks_list: list):
+        for value in tasks_list:
+            if value.__eq__(task):
+                return True
+        return False
+
     def edit_task(self, task: Task, name=None, description=None, completed=None, priority=None):
         return task.edit(name, description, completed, priority)
 
