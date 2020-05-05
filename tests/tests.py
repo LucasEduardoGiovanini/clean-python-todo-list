@@ -154,18 +154,6 @@ class Tests(unittest.TestCase):
         with self.assertRaises(TodoListError):
             testlist15.create_task(todolist_id, "banana", " test banana", True, "3")
 
-    def test_create_list_database(self):
-        email_user_test = "test_email"
-        repository = TodoListRepository()
-        response = repository.create_todo_list(email_user_test, "market")
-        self.assertEqual(response.todo_name, "market")
-
-    def test_create_task_database(self):
-        repository = TodoListRepository()
-        selected_code = repository.recover_list_id_by_namelist_and_email("market", "test_email")
-        response = repository.create_task(selected_code['todolist_id'], "work", "i need finish my code", True, 1)  #crio a task na posição
-
-        self.assertEqual(response.task_name, "work")
 
     def test_all_user_list(self):
         repository = TodoListRepository()
