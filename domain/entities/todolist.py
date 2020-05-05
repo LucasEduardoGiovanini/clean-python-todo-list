@@ -1,17 +1,15 @@
 from domain.entities.task import Task
 from domain.exception.custom_exception import TodoListError
 import operator
-import uuid
 
 
 class TodoList:
-    def __init__(self, name):
-        self.id = uuid.uuid4()
-        self.name = name
-        self.tasks = list()
+    def __init__(self, todo_name, email_creator):
+        self.todo_name = todo_name
+        self.email_creator = email_creator
 
-    def create_task(self, name: str, description: str, completed: bool, priority: int):
-        task_created = Task(name, description, completed, priority)
+    def create_task(self, todolist_id, name: str, description: str, completed: bool, priority: int):
+        task_created = Task(todolist_id, name, description, completed, priority)
         self.add_task(task_created)
         return task_created
 
@@ -20,49 +18,32 @@ class TodoList:
         return self.tasks
 
     def undo_task(self, task: Task):
-        try:
-            self.tasks[self.tasks.index(task)].undo()
-        except ValueError as ve:
-            raise TodoListError(ve, 22, "undo a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 22, "the informed index is greater than the list")
-        else:
-            return task
+        task.undo()
+        return task
 
     def complete_task(self, task: Task):
-        try:
-            self.tasks[self.tasks.index(task)].complete()
-        except ValueError as ve:
-            raise TodoListError(ve, 30, "completing a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 30, "the informed index is greater than the list")
-        else:
-            return task
+        task.complete()
+        return task
 
     def remove_task(self, task: Task):
-        try:
-            self.tasks.remove(task)
-        except ValueError as ve:
-            raise TodoListError(ve, 38, "removing a task that does not exist in this list")
-        else:
-            return True
+        del task
+        return True
+
+    def task_exists_in_list(self, task: Task, tasks_list: list):
+        for value in tasks_list:
+            if value.__eq__(task):
+                return True
+        return False
 
     def edit_task(self, task: Task, name=None, description=None, completed=None, priority=None):
-        try:
-            self.tasks[self.tasks.index(task)].edit(name, description, completed, priority)
-        except ValueError as ve:
-            raise TodoListError(ve, 46, "update a task that does not exist in this list")
-        except IndexError as ie:
-            raise TodoListError(ie, 46, "the informed index is greater than the list")
-        else:
-            return task
+        return task.edit(name, description, completed, priority)
 
     def edit_list_name(self, name=None):
-        self.name = name or self.name
-        return self.name
+        self.todo_name = name or self.todo_name
+        return self.todo_name
 
     def __str__(self):
-        return "nome lista: " + self.name + " tarefas: " + str(self.tasks)
+        return "nome lista: " + self.todo_name + " tarefas: " + str(self.tasks)
 
     def sort_tasks_by_priority(self):
         self.tasks = sorted(self.tasks, key=operator.attrgetter("priority"))
